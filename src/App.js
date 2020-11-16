@@ -1,6 +1,6 @@
 import "./App.css";
 import "./Palette.js";
-import Palatte from "./Palette";
+import Palette from "./Palette";
 import seedColors from "./seedColors";
 
 function App() {
