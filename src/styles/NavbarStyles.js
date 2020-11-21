@@ -26,7 +26,7 @@ const styles = {
     "& .rc-slider-rail": {
       height: "8px",
     },
-    "& rc-slider-handle, .rc-slider-handle:hover, .rc-slider-handle:focus, .rc-slider-handle:active": {
+    "& .rc-slider-handle, .rc-slider-handle:hover, .rc-slider-handle:focus, .rc-slider-handle:active": {
       outline: "none",
       boxShadow: "none",
       marginTop: "-3px",

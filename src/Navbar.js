@@ -8,12 +8,12 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles/NavbarStyles";
+import "rc-slider/assets/index.css";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { format: "hex", open: false, just_set_format: false };
-    console.log("constructor");
   }
 
   handleFormatChange = (e) => {
@@ -35,6 +35,7 @@ class Navbar extends Component {
 
   render() {
     const { level, changeLevel, showingAllColors, classes } = this.props;
+    console.log(classes);
     const { format } = this.state;
     return (
       <header className={classes.Navbar}>
