@@ -1,10 +1,30 @@
 import React, { useEffect } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-export default function ColorPickerForm(props) {
-  const { paletteIsFull, addNewColor, colors } = props;
+const styles = {
+  root: {
+    width: "100%",
+  },
+  picker: {
+    marginTop: "2rem",
+  },
+  addColor: {
+    width: "100%",
+    marginTop: "1rem",
+    padding: "1rem",
+    fontSize: "2rem",
+  },
+  colorNameInput: {
+    width: "100%",
+    height: "70px",
+  },
+};
+
+function ColorPickerForm(props) {
+  const { paletteIsFull, addNewColor, colors, classes } = props;
   const [currentColor, setCurrentColor] = React.useState("purple");
   const [newColorName, setNewColorName] = React.useState("");
 
@@ -31,16 +51,22 @@ export default function ColorPickerForm(props) {
   });
 
   return (
-    <div>
+    <div className={classes.root}>
       <ChromePicker
         color={currentColor}
         onChangeComplete={(color) => updateCurrentColor(color.hex)}
+        className={classes.picker}
+        width="100%"
       />
 
       <ValidatorForm onSubmit={handleSubmit}>
         <TextValidator
+          className={classes.colorNameInput}
           value={newColorName}
+          variant="filled"
+          placeholder="Color Name"
           name="newColorName"
+          margin="normal"
           onChange={(evt) => setNewColorName(evt.target.value)}
           validators={["required", "isColorNameUnique", "isColorUnique"]}
           errorMessages={[
@@ -51,6 +77,7 @@ export default function ColorPickerForm(props) {
         />
 
         <Button
+          className={classes.addColor}
           variant="contained"
           color="primary"
           disabled={paletteIsFull}
@@ -65,3 +92,5 @@ export default function ColorPickerForm(props) {
     </div>
   );
 }
+
+export default withStyles(styles)(ColorPickerForm);
