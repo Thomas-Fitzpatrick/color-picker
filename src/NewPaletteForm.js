@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -82,7 +81,10 @@ export default function NewPaletteForm(props) {
   const [colors, setColors] = React.useState([
     { name: "grape", color: "purple" },
   ]);
-  const [newName, setNewName] = React.useState([""]);
+  const [formData, setFormData] = React.useState({
+    newColorName: "",
+    newPaletteName: "",
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -98,17 +100,17 @@ export default function NewPaletteForm(props) {
 
   // TODO: check state update process
   const addNewColor = () => {
-    const newColor = { name: newName, color: currentColor };
+    const newColor = { name: formData.newColorName, color: currentColor };
     setColors([...colors, newColor]);
-    setNewName("");
+    setFormData({ ...formData, newColorName: "" });
   };
 
   const handleChange = (evt) => {
-    setNewName(evt.target.value);
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSave = () => {
-    const nameParam = "New Test Palette";
+    let nameParam = formData.newPaletteName;
     const newPalette = {
       paletteName: nameParam,
       id: nameParam.toLowerCase().replace(/ /g, "-"),
@@ -129,11 +131,15 @@ export default function NewPaletteForm(props) {
         ({ color }) => color.toLowerCase() !== currentColor.toLowerCase()
       );
     });
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
+      return props.palettes.every(
+        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+      );
+    });
   });
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         color="default"
@@ -155,11 +161,22 @@ export default function NewPaletteForm(props) {
             Persistent drawer
           </Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
-          ></Button>
+          <ValidatorForm onSubmit={handleSave}>
+            <TextValidator
+              label="New Palette Name"
+              value={formData.newPaletteName}
+              name="newPaletteName"
+              onChange={handleChange}
+              validators={["required", "isPaletteNameUnique"]}
+              errorMessages={[
+                "Enter Palette Name",
+                "Palette name already in use",
+              ]}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -195,12 +212,12 @@ export default function NewPaletteForm(props) {
 
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
-            value={newName}
-            name="new color"
+            value={formData.newColorName}
+            name="newColorName"
             onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
-              "Color name is required.",
+              "Color name is required",
               "Color name must be unique",
               "Color must be unique",
             ]}
