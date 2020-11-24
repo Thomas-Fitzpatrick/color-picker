@@ -11,8 +11,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import { ChromePicker } from "react-color";
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
 
@@ -122,6 +123,10 @@ export default function NewPaletteForm(props) {
 
   const deleteColor = (colorName) => {
     setColors(colors.filter((color) => color.name !== colorName));
+  };
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setColors(arrayMove(colors, oldIndex, newIndex));
   };
 
   useEffect(() => {
@@ -244,14 +249,12 @@ export default function NewPaletteForm(props) {
       >
         <div className={classes.drawerHeader} />
 
-        {colors.map((color) => (
-          <DraggableColorBox
-            color={color.color}
-            name={color.name}
-            key={color.name}
-            handleClick={() => deleteColor(color.name)}
-          />
-        ))}
+        <DraggableColorList
+          axis="xy"
+          colors={colors}
+          deleteColor={deleteColor}
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   );
