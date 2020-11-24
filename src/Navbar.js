@@ -13,24 +13,20 @@ import "rc-slider/assets/index.css";
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { format: "hex", open: false, just_set_format: false };
+    this.state = { format: "hex", open: false };
   }
 
   handleFormatChange = (e) => {
+    e.stopPropagation();
     this.setState({
       format: e.target.value,
       open: true,
-      just_set_format: true,
     });
     this.props.handleChange(e.target.value);
   };
 
   closeSnackbar = (e) => {
-    if (this.state.just_set_format) {
-      this.setState({ just_set_format: false });
-      return;
-    }
-    this.setState({ open: false, just_set_format: false });
+    this.setState({ open: false });
   };
 
   render() {
