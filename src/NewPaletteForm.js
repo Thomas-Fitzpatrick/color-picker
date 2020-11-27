@@ -119,8 +119,6 @@ export default function NewPaletteForm({ maxColors = 20, ...props }) {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-
         <DraggableColorList
           axis="xy"
           colors={colors}
