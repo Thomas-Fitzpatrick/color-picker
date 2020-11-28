@@ -23,6 +23,7 @@ export default function NewPaletteMetaForm(props) {
 
   const savePalette = (emoji) => {
     props.handleSubmit({ paletteName: newPaletteName, emoji: emoji.native });
+    setStage("");
   };
 
   useEffect(() => {
