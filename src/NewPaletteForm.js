@@ -87,7 +87,7 @@ export default function NewPaletteForm({ maxColors = 20, ...props }) {
         <Divider />
         <div className={classes.container}>
           <Typography variant="h4" gutterBottom>
-            Design Your Palette
+            Choose Color
           </Typography>
           <div className={classes.buttons}>
             <Button

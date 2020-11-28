@@ -20,6 +20,11 @@ const styles = (theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    [sizes.down("xs")]: {
+      width: `calc(100% - ${drawerWidth * 0.8}px)`,
+      marginLeft: drawerWidth * 0.8,
+    },
+
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -27,6 +32,9 @@ const styles = (theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    [sizes.down("xs")]: {
+      marginRight: 0,
+    },
   },
   hide: {
     display: "none",
@@ -37,14 +45,19 @@ const styles = (theme) => ({
       textDecoration: "none",
     },
     [sizes.down("xs")]: {
-      marginRight: "0.5rem",
+      marginRight: "0.3rem",
     },
   },
   button: {
     margin: "0 0.5rem",
     [sizes.down("xs")]: {
-      margin: "0 0.2rem",
-      padding: "0.3rem",
+      margin: "0 0.1rem",
+      padding: "0.2rem",
+    },
+  },
+  title: {
+    [sizes.down("xs")]: {
+      fontSize: "1rem",
     },
   },
 });

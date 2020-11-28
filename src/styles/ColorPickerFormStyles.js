@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 const styles = {
   root: {
     width: "100%",
@@ -10,6 +12,11 @@ const styles = {
     marginTop: "1rem",
     padding: "1rem",
     fontSize: "2rem",
+    [sizes.down("xs")]: {
+      fontSize: "1.5rem",
+      marginTop: "0.5rem",
+      padding: "0.5rem",
+    },
   },
   colorNameInput: {
     width: "100%",

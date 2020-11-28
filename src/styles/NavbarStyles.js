@@ -21,7 +21,7 @@ const styles = {
       color: "black",
     },
     [sizes.down("xs")]: {
-      display: "none",
+      fontSize: "0.8rem",
     },
   },
   slider: {
@@ -38,6 +38,17 @@ const styles = {
     },
     [sizes.down("sm")]: {
       width: "150px",
+    },
+  },
+  sliderContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    "& span": {
+      [sizes.down("sm")]: {
+        fontSize: "0.8rem",
+      },
     },
   },
   selectContainer: {
